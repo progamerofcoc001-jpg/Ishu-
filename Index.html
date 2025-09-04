@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>🌈 Ultimate Falling Heart Text 🌈</title>
+<style>
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(270deg, #ff9a9e, #fad0c4, #a18cd1, #fbc2eb, #ff9a9e);
+  background-size: 1000% 1000%;
+  animation: rainbowBG 20s ease infinite;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@keyframes rainbowBG {
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+
+#heart-container {
+  position: relative;
+  width: 400px;
+  height: 400px;
+  clip-path: polygon(
+    50% 0%, 61% 8%, 68% 16%, 75% 24%, 80% 32%, 85% 40%,
+    90% 50%, 85% 60%, 80% 68%, 75% 76%, 68% 84%, 61% 92%,
+    50% 100%, 39% 92%, 32% 84%, 25% 76%, 20% 68%, 15% 60%,
+    10% 50%, 15% 40%, 20% 32%, 25% 24%, 32% 16%, 39% 8%
+  );
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.falling-text {
+  position: absolute;
+  top: -100px;
+  font-size: 28px;
+  font-weight: bold;
+  text-align: center;
+  background: linear-gradient(90deg, #ff0000, #ff9900, #ffff00, #00ff00, #00ffff, #0000ff, #ff00ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 10px rgba(255,255,255,0.8), 0 0 20px rgba(255,192,203,0.7);
+  white-space: pre-line;
+  animation: fall 5s linear infinite;
+}
+
+@keyframes fall {
+  0% {transform: translateY(-100px); opacity: 0;}
+  10% {opacity: 1;}
+  90% {opacity: 1;}
+  100% {transform: translateY(400px); opacity: 0;}
+}
+
+.heart-bg {
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  background: red;
+  clip-path: polygon(
+    50% 0%, 61% 8%, 68% 16%, 75% 24%, 80% 32%, 85% 40%,
+    90% 50%, 85% 60%, 80% 68%, 75% 76%, 68% 84%, 61% 92%,
+    50% 100%, 39% 92%, 32% 84%, 25% 76%, 20% 68%, 15% 60%,
+    10% 50%, 15% 40%, 20% 32%, 25% 24%, 32% 16%, 39% 8%
+  );
+  opacity: 0.6;
+  animation: floatHeart linear infinite;
+}
+
+@keyframes floatHeart {
+  0% {transform: translateY(400px) scale(0.5) rotate(0deg); opacity:0;}
+  50% {opacity:0.7;}
+  100% {transform: translateY(-100px) scale(1.2) rotate(360deg); opacity:0;}
+}
+
+.pulse-heart {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  background: radial-gradient(circle, rgba(255,0,128,0.5), rgba(255,0,128,0));
+  clip-path: polygon(
+    50% 0%, 61% 8%, 68% 16%, 75% 24%, 80% 32%, 85% 40%,
+    90% 50%, 85% 60%, 80% 68%, 75% 76%, 68% 84%, 61% 92%,
+    50% 100%, 39% 92%, 32% 84%, 25% 76%, 20% 68%, 15% 60%,
+    10% 50%, 15% 40%, 20% 32%, 25% 24%, 32% 16%, 39% 8%
+  );
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0% {transform: scale(0.8);}
+  50% {transform: scale(1);}
+  100% {transform: scale(0.8);}
+}
+
+/* Sparkle particles */
+.sparkle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: white;
+  opacity: 0.8;
+  animation: sparkleMove 3s linear infinite;
+}
+
+@keyframes sparkleMove {
+  0% {transform: translateY(0px) scale(0);}
+  50% {opacity: 1; scale:1;}
+  100% {transform: translateY(400px) scale(0);}
+}
+</style>
+</head>
+<body>
+
+<div id="heart-container">
+  <div class="pulse-heart"></div>
+</div>
+
+<script>
+const container = document.getElementById('heart-container');
+const messages = [
+  "I love you bubu ❤️🥰💖",
+  "You are soo beautiful, mera bacha 🌸💖"
+];
+
+// Multiple texts fall
+function createFallingText() {
+  const textEl = document.createElement('div');
+  textEl.classList.add('falling-text');
+  textEl.style.left = '50%';
+  textEl.style.transform = 'translateX(-50%)';
+  textEl.innerText = messages[Math.floor(Math.random() * messages.length)];
+  container.appendChild(textEl);
+  setTimeout(() => textEl.remove(), 5000);
+}
+
+setInterval(createFallingText, 800);
+
+// Floating small hearts
+function createFloatingHeart() {
+  const heart = document.createElement('div');
+  heart.classList.add('heart-bg');
+  heart.style.left = Math.random() * 360 + 'px';
+  heart.style.width = 10 + Math.random() * 20 + 'px';
+  heart.style.height = heart.style.width;
+  heart.style.animationDuration = 4 + Math.random()*3 + 's';
+  container.appendChild(heart);
+  setTimeout(() => heart.remove(), 7000);
+}
+
+setInterval(createFloatingHeart, 300);
+
+// Sparkle particles
+function createSparkle() {
+  const sparkle = document.createElement('div');
+  sparkle.classList.add('sparkle');
+  sparkle.style.left = Math.random() * 380 + 'px';
+  sparkle.style.top = Math.random() * 50 + 'px';
+  sparkle.style.background = `hsl(${Math.random()*360}, 100%, 85%)`;
+  container.appendChild(sparkle);
+  setTimeout(() => sparkle.remove(), 3000);
+}
+
+setInterval(createSparkle, 100);
+
+// Optional: interactive sparkle on mouse move
+container.addEventListener('mousemove', (e)=>{
+  const sparkle = document.createElement('div');
+  sparkle.classList.add('sparkle');
+  sparkle.style.left = e.offsetX + 'px';
+  sparkle.style.top = e.offsetY + 'px';
+  sparkle.style.background = `hsl(${Math.random()*360}, 100%, 85%)`;
+  container.appendChild(sparkle);
+  setTimeout(()=> sparkle.remove(), 500);
+});
+</script>
+
+</body>
+</html>
